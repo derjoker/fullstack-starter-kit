@@ -18,7 +18,7 @@ server.use(function (req, res, next) {
   next()
 })
 
-server.use(express.static('build'))
+if (isProd) server.use(express.static('build'))
 
 server.get('/', (req, res) => {
   res.sendFile('index.html')
