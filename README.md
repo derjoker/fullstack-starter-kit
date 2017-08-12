@@ -11,3 +11,5 @@ React + GraphQL + MongoDB
 1. npm install react-apollo --save
 1. npm install antd react-router-dom --save
 1. npm install concurrently cross-env --save-dev
+1. npm install react-styleguidist --save-dev
+1. npm install react-table --save

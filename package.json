@@ -16,10 +16,13 @@
     "react-apollo": "^1.4.12",
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.1.2",
-    "react-scripts": "1.0.11"
+    "react-scripts": "1.0.11",
+    "react-table": "^6.5.3"
   },
   "scripts": {
     "babel-node": "babel-node",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build",
     "server": "nodemon --watch src/server src/server --exec babel-node",
     "start": "react-scripts start",
     "dev": "concurrently \"npm run server\" \"npm start\"",
@@ -34,6 +37,7 @@
     "concurrently": "^3.5.0",
     "cross-env": "^5.0.5",
     "nodemon": "^1.11.0",
+    "react-styleguidist": "^6.0.11",
     "standard": "^10.0.3"
   },
   "standard": {
