@@ -3,14 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "apollo-server-express": "^1.1.0",
+    "body-parser": "^1.17.2",
     "express": "^4.15.4",
+    "graphql": "^0.10.5",
+    "graphql-tools": "^1.1.0",
+    "mongoose": "^4.11.6",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.11"
   },
   "scripts": {
     "babel-node": "babel-node",
-    "server": "babel-node src/server.js",
+    "server": "nodemon --watch src/server src/server --exec babel-node",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "standard && react-scripts test --env=jsdom",
@@ -19,6 +24,7 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-env": "^1.6.0",
+    "nodemon": "^1.11.0",
     "standard": "^10.0.3"
   },
   "standard": {
@@ -29,11 +35,14 @@
   },
   "babel": {
     "presets": [
-      ["env", {
-        "targets": {
-          "node": "current"
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          }
         }
-      }]
+      ]
     ]
   }
 }

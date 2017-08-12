@@ -1,4 +1,11 @@
 import express from 'express'
+import bodyParser from 'body-parser'
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
+
+import connect from './connect'
+import schema from './schema'
+
+connect()
 
 const server = express()
 
@@ -16,6 +23,14 @@ server.use(express.static('build'))
 server.get('/', (req, res) => {
   res.sendFile('index.html')
 })
+
+server.use('/graphql', bodyParser.json(), graphqlExpress({
+  schema
+}))
+
+server.use('/graphiql', graphiqlExpress({
+  endpointURL: '/graphql'
+}))
 
 server.listen(PORT, (err) => {
   if (err) throw err
