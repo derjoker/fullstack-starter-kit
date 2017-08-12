@@ -9,3 +9,4 @@ React + GraphQL + MongoDB
 1. npm install mongoose --save
 1. npm install nodemon --save-dev
 1. npm install react-apollo --save
+1. npm install antd react-router-dom --save

@@ -1,19 +1,35 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import createBrowserHistory from 'history/createBrowserHistory'
+
+import 'antd/dist/antd.css'
+
+import MainLayout from './containers/MainLayout'
+
+const Home = () => (
+  <div>Home</div>
+)
+
+const About = () => (
+  <div>About</div>
+)
+
+const history = createBrowserHistory()
 
 class App extends Component {
   render () {
-    return (
-      <div className='App'>
-        <div className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className='App-intro'>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+    const content = (
+      <div>
+        <Route exact path='/' component={Home} />
+        <Route path='/about' component={About} />
       </div>
+    )
+    return (
+      <Router history={history}>
+        <div>
+          <MainLayout content={content} />
+        </div>
+      </Router>
     )
   }
 }
