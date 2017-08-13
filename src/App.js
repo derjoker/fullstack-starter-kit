@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
 
 import 'antd/dist/antd.css'
+import 'react-table/react-table.css'
 
 import MainLayout from './containers/MainLayout'
+import Play from './containers/Play'
 
 const Home = () => (
   <div>Home</div>
@@ -21,6 +23,7 @@ class App extends Component {
     const content = (
       <div>
         <Route exact path='/' component={Home} />
+        <Route exact path='/play' component={Play} />
         <Route path='/about' component={About} />
       </div>
     )

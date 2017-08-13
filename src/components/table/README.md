@@ -4,10 +4,10 @@
 require('react-table/react-table.css')
 
 const data = [
-  {name: 'name', email: 'email', age: 7}
+  {name: 'name', email: 'email', address: 'address', age: 7}
 ]
 
 ;
 
-<Table data={data} />
+<Table loading={false} data={data} />
 ```

@@ -12,6 +12,9 @@ const MainLayout = ({ content }) => (
         <Menu.Item key='home'>
           <Link to='/'>Home</Link>
         </Menu.Item>
+        <Menu.Item key='play'>
+          <Link to='/play'>Play</Link>
+        </Menu.Item>
         <Menu.Item key='about'>
           <Link to='/about'>About</Link>
         </Menu.Item>

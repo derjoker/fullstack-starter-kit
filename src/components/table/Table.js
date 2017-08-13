@@ -2,15 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ReactTable from 'react-table'
 
-const Table = ({ data }) => {
+const Table = ({ loading, data = [] }) => {
   const columns = [
     {Header: 'Name', accessor: 'name', minWidth: 50},
     {Header: 'Email', accessor: 'email'},
+    {Header: 'Address', accessor: 'address'},
     {Header: 'Age', accessor: 'age'}
   ]
   return (
     <div>
       <ReactTable
+        loading={loading}
         data={data}
         columns={columns}
         pageSize={(data && data.length) || 0}
@@ -22,7 +24,7 @@ const Table = ({ data }) => {
 }
 
 Table.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array,
   save: PropTypes.func
 }
 
