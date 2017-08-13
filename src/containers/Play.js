@@ -4,7 +4,6 @@ import User from './User'
 
 const Play = () => (
   <div>
-    <div>Play</div>
     <User />
   </div>
 )

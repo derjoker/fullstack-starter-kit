@@ -16,12 +16,14 @@ module.exports = function Facotry (db, name, schema, indexes = []) {
    * TODO: increment(_v)
    */
   function _update (doc) {
-    if (!doc._id) throw new Error('doc._id undefined')
+    const _id = doc._id || doc.id
+    if (!_id) throw new Error('doc.id or doc._id undefined')
 
+    doc._id = _id
     const model = new Model(doc)
     const _doc = model.toJSON()
     const update = omit(_doc, indexes)
-    return Model.findByIdAndUpdate(doc._id, update, {new: true})
+    return Model.findByIdAndUpdate(_id, update, {new: true})
   }
 
   /*

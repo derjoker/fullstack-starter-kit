@@ -11,28 +11,37 @@ type User {
   age: Int
 }
 
+input UserInput {
+  id: ID
+  name: String
+  email: String
+  address: String
+  age: Int
+}
+
 type Query {
   test: String
-  users (name: String!) : [User]
+  fetchUsers (ids: [ID!]) : [User]
+  findUsers (name: String!) : [User]
 }
 
 type Mutation {
-  createUser (name: String!, email: String!, address: String, age: Int) : User
+  createUser (userInput: UserInput!) : User
+  createUsers (userInputs: [UserInput]!) : [User]
+  updateUser (userInput: UserInput!): User
 }
 `
 
 const resolvers = {
   Query: {
     test: () => 'it works!',
-    users: (_, { name }) => User.find({ name: new RegExp(name) })
+    fetchUsers: (_, { ids }) => User.fetch(ids),
+    findUsers: (_, { name }) => User.find({ name: new RegExp(name) })
   },
   Mutation: {
-    createUser: async (_, { name, email, address, age }) => {
-      const user = await User.insert({
-        name, email, address, age
-      })
-      return user
-    }
+    createUser: (_, { userInput }) => User.insert(userInput),
+    createUsers: (_, { userInputs }) => User.insert(userInputs),
+    updateUser: (_, { userInput }) => User.update(userInput)
   }
 }
 
