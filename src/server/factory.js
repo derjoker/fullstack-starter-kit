@@ -41,7 +41,7 @@ module.exports = function Facotry (db, name, schema, indexes = []) {
     const _doc = found.toJSON()
     // defaults(object, [sources]) mutates object
     const update = defaults({}, _doc, doc)
-    return isEqual(update, _doc) ? _doc : _update(update)
+    return isEqual(update, _doc) ? found : _update(update)
   }
 
   return {
