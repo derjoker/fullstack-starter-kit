@@ -22,13 +22,13 @@ input UserInput {
 type Query {
   test: String
   fetchUsers (ids: [ID!]) : [User]
-  findUsers (name: String!) : [User]
+  findUsers (condtion: UserInput) : [User]
 }
 
 type Mutation {
-  createUser (userInput: UserInput!) : User
-  createUsers (userInputs: [UserInput]!) : [User]
-  updateUser (userInput: UserInput!): User
+  createUser (user: UserInput!) : User
+  createUsers (users: [UserInput]!) : [User]
+  updateUser (user: UserInput!): User
 }
 `
 
@@ -36,12 +36,12 @@ const resolvers = {
   Query: {
     test: () => 'it works!',
     fetchUsers: (_, { ids }) => User.fetch(ids),
-    findUsers: (_, { name }) => User.find({ name: new RegExp(name) })
+    findUsers: (_, { condtion }) => User.find(condtion)
   },
   Mutation: {
-    createUser: (_, { userInput }) => User.insert(userInput),
-    createUsers: (_, { userInputs }) => User.insert(userInputs),
-    updateUser: (_, { userInput }) => User.update(userInput)
+    createUser: (_, { user }) => User.insert(user),
+    createUsers: (_, { users }) => User.insert(users),
+    updateUser: (_, { user }) => User.update(user)
   }
 }
 
