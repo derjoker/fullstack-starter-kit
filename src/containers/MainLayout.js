@@ -7,7 +7,7 @@ const { Header, Content } = Layout
 
 const MainLayout = ({ content }) => (
   <Layout>
-    <Header style={{ position: 'fixed', width: '100%' }}>
+    <Header style={{ width: '100%' }}>
       <Menu theme='dark' mode='horizontal' style={{ lineHeight: '64px' }} >
         <Menu.Item key='home'>
           <Link to='/'>Home</Link>
@@ -20,7 +20,7 @@ const MainLayout = ({ content }) => (
         </Menu.Item>
       </Menu>
     </Header>
-    <Content style={{ padding: '12px', marginTop: '64px' }}>
+    <Content style={{ padding: '12px' }}>
       <div style={{ background: '#fff', padding: '12px', minHeight: `${window.innerHeight - 88}px` }}>
         {content}
       </div>
