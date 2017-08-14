@@ -19,7 +19,7 @@ const User = ({ data, mutate }) => {
 
 const USER_QUERY = gql`
 query {
-  users: findUsers (condtion: {}) {
+  users: findUsers (condition: {}) {
     id
     name
     email
