@@ -1,12 +1,26 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactTable from 'react-table'
 import { omit } from 'lodash'
 
 import Editable from './Editable'
 
-const Table = ({ loading, data = [], save }) => {
-  const renderEditable = cell => {
+class Table extends Component {
+  constructor (props) {
+    super(props)
+    this.renderEditable = this.renderEditable.bind(this)
+    this.columns = this.props.columns.map(column => {
+      if (column.editable) {
+        return {
+          ...column,
+          Cell: this.renderEditable
+        }
+      } else return column
+    })
+  }
+
+  renderEditable (cell) {
+    const { data, save } = this.props
     return (
       <Editable
         style={{ backgroundColor: '#fafafa' }}
@@ -24,25 +38,22 @@ const Table = ({ loading, data = [], save }) => {
     )
   }
 
-  const columns = [
-    {Header: 'Name', accessor: 'name', minWidth: 50},
-    {Header: 'Email', accessor: 'email'},
-    {Header: 'Address', accessor: 'address', Cell: renderEditable},
-    {Header: 'Age', accessor: 'age', Cell: renderEditable}
-  ]
-
-  return (
-    <div>
-      <ReactTable
-        loading={loading}
-        data={data}
-        columns={columns}
-        pageSize={(data && data.length) || 0}
-        showPagination={false}
-        style={{textAlign: 'center'}}
-        className='-striped -highlight' />
-    </div>
-  )
+  render () {
+    const { loading, data } = this.props
+    const columns = this.columns
+    return (
+      <div>
+        <ReactTable
+          loading={loading}
+          data={data}
+          columns={columns}
+          pageSize={(data && data.length) || 0}
+          showPagination={false}
+          style={{textAlign: 'center'}}
+          className='-striped -highlight' />
+      </div>
+    )
+  }
 }
 
 Table.propTypes = {
