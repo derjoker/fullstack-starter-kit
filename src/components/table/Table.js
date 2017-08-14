@@ -39,7 +39,7 @@ class Table extends Component {
   }
 
   render () {
-    const { loading, data } = this.props
+    const { loading = false, data = [] } = this.props
     const columns = this.columns
     return (
       <div>
@@ -47,7 +47,7 @@ class Table extends Component {
           loading={loading}
           data={data}
           columns={columns}
-          pageSize={(data && data.length) || 0}
+          pageSize={data.length}
           showPagination={false}
           style={{textAlign: 'center'}}
           className='-striped -highlight' />
@@ -58,6 +58,7 @@ class Table extends Component {
 
 Table.propTypes = {
   loading: PropTypes.bool,
+  columns: PropTypes.array.isRequired,
   data: PropTypes.array,
   save: PropTypes.func
 }

@@ -23,5 +23,5 @@ const data = [
 
 ;
 
-<Table loading={false} columns={columns} data={data} />
+<Table columns={columns} data={data} />
 ```
