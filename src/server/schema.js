@@ -22,7 +22,7 @@ input UserInput {
 type Query {
   test: String
   fetchUsers (ids: [ID!]) : [User]
-  findUsers (condtion: UserInput) : [User]
+  findUsers (condition: UserInput) : [User]
 }
 
 type Mutation {
@@ -36,7 +36,7 @@ const resolvers = {
   Query: {
     test: () => 'it works!',
     fetchUsers: (_, { ids }) => User.fetch(ids),
-    findUsers: (_, { condtion }) => User.find(condtion)
+    findUsers: (_, { condition }) => User.find(condition)
   },
   Mutation: {
     createUser: (_, { user }) => User.insert(user),
