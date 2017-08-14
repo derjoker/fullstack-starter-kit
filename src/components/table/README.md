@@ -1,3 +1,9 @@
+## Editable
+
+```jsx
+<Editable content={'Editable'} />
+```
+
 ## Basic Table
 
 ```jsx

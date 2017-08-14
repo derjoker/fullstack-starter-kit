@@ -3,22 +3,22 @@ import PropTypes from 'prop-types'
 import ReactTable from 'react-table'
 import { omit } from 'lodash'
 
+import Editable from './Editable'
+
 const Table = ({ loading, data = [], save }) => {
-  const renderEditable = cellInfo => {
+  const renderEditable = cell => {
     return (
-      <div
+      <Editable
         style={{ backgroundColor: '#fafafa' }}
-        contentEditable
-        suppressContentEditableWarning
-        onBlur={e => {
-          const prev = omit(data[cellInfo.index], '__typename')
-          const record = {...prev}
-          record[cellInfo.column.id] = e.target.innerText
-          console.table([prev, record])
-          save && save(record)
-        }}
-        dangerouslySetInnerHTML={{
-          __html: data[cellInfo.index][cellInfo.column.id]
+        content={data[cell.index][cell.column.id]}
+        save={value => {
+          console.log(data[cell.index])
+          const previous = omit(data[cell.index], '__typename')
+          const current = {...previous}
+          current[cell.column.id] = value
+          console.table([previous, current])
+          console.log(data[cell.index])
+          save && save(current)
         }}
       />
     )
