@@ -2,19 +2,21 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { trim, isNil } from 'lodash'
 
-function formatContent (content) {
-  return (isNil(content) || content === '') ? '<br>' : content
+function formatContent (value) {
+  return (isNil(value) || value === '') ? '<br>' : value
 }
 
 function formatValue (content) {
   if (isNil(content)) return null
   const value = trim(content, /(&nbsp;)|(<br>)|(<div><br><\/div>)/)
-  return value === '' ? null : value
+  return value === '' ? null : value.toString()
 }
 
 class Editable extends Component {
   constructor (props) {
     super(props)
+    this.reset = this.reset.bind(this)
+    this.save = this.save.bind(this)
     this.keyDown = this.keyDown.bind(this)
     this.blur = this.blur.bind(this)
     this.state = {
@@ -22,27 +24,34 @@ class Editable extends Component {
     }
   }
 
+  reset () {
+    this.input.innerHTML = this.state.content
+  }
+
+  save (content) {
+    const value = formatValue(content)
+    if (formatValue(this.state.content) === value) return
+
+    this.props.save && this.props.save(value)
+    this.setState({
+      content: formatContent(value)
+    })
+  }
+
   keyDown (e) {
     const key = e.metaKey || e.ctrlKey
     // console.log(e.key)
     if (key && e.key === 'Enter') {
-      const content = e.target.innerHTML
-      this.setState({
-        content: formatContent(content)
-      })
-      // save
-      const value = formatValue(content)
-      this.props.save && this.props.save(value)
       this.input.blur()
     } else if (e.key === 'Escape') {
+      this.reset()
       this.input.blur()
     }
   }
 
-  blur () {
-    // reset
-    // console.log('blur', this.state.content)
-    this.input.innerHTML = this.state.content
+  blur (e) {
+    const content = e.target.innerHTML
+    this.save(content)
   }
 
   render () {
