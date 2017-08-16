@@ -7,8 +7,8 @@ function formatContent (content) {
 }
 
 function formatValue (content) {
-  if (content === undefined) return null
-  const value = trim(trim(content), '<br>')
+  if (isNil(content)) return null
+  const value = trim(content, /(&nbsp;)|(<br>)|(<div><br><\/div>)/)
   return value === '' ? null : value
 }
 
