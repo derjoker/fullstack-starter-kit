@@ -46,6 +46,7 @@ module.exports = function Facotry (db, name, schema, indexes = []) {
 
   return {
     find: (conditions) => Model.find(conditions),
+    delete: (conditions) => Model.deleteMany(conditions),
     findById: (id) => Model.findById(id),
     fetch: (ids) => Model.find({
       _id: {$in: ids}

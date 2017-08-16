@@ -105,4 +105,20 @@ describe('Model Factory', () => {
     expect(Array.isArray(users)).toBeTruthy()
     expect(users[0].name).toBe('find')
   })
+
+  it('delete', async () => {
+    const users = await User.insert([
+      {name: 'delete-keep', email: 'email', age: 7},
+      {name: 'delete', email: 'email1', age: 7},
+      {name: 'delete', email: 'email2', age: 7}
+    ])
+    expect(users.length).toBe(3)
+    const conditions = {name: 'delete'}
+    const deleted = await User.delete(conditions)
+    expect(deleted.result).toEqual({
+      n: 2, ok: 1
+    })
+    const found = await User.find(conditions)
+    expect(found.length).toBe(0)
+  })
 })
