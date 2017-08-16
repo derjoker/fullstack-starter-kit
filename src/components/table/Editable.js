@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { trim } from 'lodash'
+import { trim, isNil } from 'lodash'
 
 function formatContent (content) {
-  return (content === undefined || content === '') ? '<br>' : content
+  return (isNil(content) || content === '') ? '<br>' : content
 }
 
 function formatValue (content) {
@@ -51,6 +51,7 @@ class Editable extends Component {
         ref={input => { this.input = input }}
         contentEditable
         suppressContentEditableWarning
+        style={{ backgroundColor: '#fafafa' }}
         onKeyDown={this.keyDown}
         onBlur={this.blur}
         dangerouslySetInnerHTML={{

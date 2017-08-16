@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactTable from 'react-table'
-import { omit } from 'lodash'
+import { omit, omitBy, isNil } from 'lodash'
 
 import Editable from './Editable'
 
@@ -30,8 +30,13 @@ class Table extends Component {
     const { data, save } = this.props
     return value => {
       console.log(data[cell.index])
-      const previous = omit(data[cell.index], '__typename')
+      // remove nil first
+      const previous = omitBy(
+        omit(data[cell.index], '__typename'),
+        isNil
+      )
       const current = {...previous}
+      // new value can be nil
       current[cell.column.id] = value
       console.table([previous, current])
       console.log(data[cell.index])
@@ -44,7 +49,6 @@ class Table extends Component {
     // const content = data[cell.index][cell.column.id]
     return (
       <Editable
-        style={{ backgroundColor: '#fafafa' }}
         content={cell.value}
         save={this.save(cell)}
       />
