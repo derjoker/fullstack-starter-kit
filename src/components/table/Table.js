@@ -79,8 +79,10 @@ class Table extends Component {
       <div>
         <ReactTable
           loading={loading}
-          data={data}
           columns={columns}
+          data={data}
+          filterable
+          defaultFilterMethod={(filter, row) => (new RegExp(filter.value)).test(row[filter.id])}
           pageSize={data.length}
           showPagination={false}
           style={{textAlign: 'center'}}
