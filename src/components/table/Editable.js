@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { trim, isNil } from 'lodash'
+import { trim, toString } from 'lodash'
 
 function formatContent (value) {
-  return (isNil(value) || value === '') ? '<br>' : value
+  return value === '' ? '<br>' : value
 }
 
 function formatValue (content) {
-  if (isNil(content)) return null
-  const value = trim(content, /(&nbsp;)|(<br>)|(<div><br><\/div>)/)
-  return value === '' ? null : value.toString()
+  return content === '' ? null : content
 }
 
 class Editable extends Component {
@@ -20,7 +18,7 @@ class Editable extends Component {
     this.keyDown = this.keyDown.bind(this)
     this.blur = this.blur.bind(this)
     this.state = {
-      content: formatContent(this.props.content)
+      content: toString(this.props.content)
     }
   }
 
@@ -29,19 +27,19 @@ class Editable extends Component {
   }
 
   save (content) {
-    const value = formatValue(content)
-    if (formatValue(this.state.content) === value) return
+    if (this.state.content === content) return
 
-    this.props.save && this.props.save(value)
+    console.log(this.state.content, content)
+    this.props.save && this.props.save(formatValue(content))
     this.setState({
-      content: formatContent(value)
+      content: content
     })
   }
 
   keyDown (e) {
-    const key = e.metaKey || e.ctrlKey
     // console.log(e.key)
-    if (key && e.key === 'Enter') {
+    if (e.key === 'Enter') {
+      e.preventDefault()
       this.input.blur()
     } else if (e.key === 'Escape') {
       this.reset()
@@ -50,7 +48,7 @@ class Editable extends Component {
   }
 
   blur (e) {
-    const content = e.target.innerHTML
+    const content = trim(e.target.innerText)
     this.save(content)
   }
 
@@ -64,7 +62,7 @@ class Editable extends Component {
         onKeyDown={this.keyDown}
         onBlur={this.blur}
         dangerouslySetInnerHTML={{
-          __html: this.state.content
+          __html: formatContent(this.state.content)
         }}
         />
     )
