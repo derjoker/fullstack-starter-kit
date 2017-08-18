@@ -18,7 +18,7 @@ class Editable extends Component {
     this.keyDown = this.keyDown.bind(this)
     this.blur = this.blur.bind(this)
     this.state = {
-      content: toString(this.props.content)
+      content: toString(this.props.content) // undefined, null -> ''
     }
   }
 
@@ -48,7 +48,9 @@ class Editable extends Component {
   }
 
   blur (e) {
-    const content = trim(e.target.innerText)
+    // FF 38.5 (Windows), innerText = undefined !!!
+    // console.log(e.target.innerText, e.target.innerHTML)
+    const content = trim(e.target.innerHTML).replace(/<br>$/, '')
     this.save(content)
   }
 
@@ -58,7 +60,6 @@ class Editable extends Component {
         ref={input => { this.input = input }}
         contentEditable
         suppressContentEditableWarning
-        style={{ backgroundColor: '#fafafa' }}
         onKeyDown={this.keyDown}
         onBlur={this.blur}
         dangerouslySetInnerHTML={{
