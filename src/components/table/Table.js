@@ -73,7 +73,7 @@ class Table extends Component {
   }
 
   render () {
-    const { loading = false, data = [] } = this.props
+    const { loading, data } = this.props
     const columns = this.columns
     return (
       <div>
@@ -97,6 +97,11 @@ Table.propTypes = {
   columns: PropTypes.array.isRequired,
   data: PropTypes.array,
   save: PropTypes.func
+}
+
+Table.defaultProps = {
+  loading: false,
+  data: []
 }
 
 export default Table

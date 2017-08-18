@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { trim, toString } from 'lodash'
+import { trim, isNil } from 'lodash'
 
 function formatContent (value) {
-  return value === '' ? '<br>' : value
+  return (isNil(value) || value === '') ? '<br>' : value
 }
 
 function formatValue (content) {
@@ -17,23 +17,18 @@ class Editable extends Component {
     this.save = this.save.bind(this)
     this.keyDown = this.keyDown.bind(this)
     this.blur = this.blur.bind(this)
-    this.state = {
-      content: toString(this.props.content) // undefined, null -> ''
-    }
   }
 
   reset () {
-    this.input.innerHTML = this.state.content
+    this.input.innerHTML = formatContent(this.content)
   }
 
   save (content) {
-    if (this.state.content === content) return
+    if (this.props.content === content) return
 
-    console.log(this.state.content, content)
-    this.props.save && this.props.save(formatValue(content))
-    this.setState({
-      content: content
-    })
+    console.log(this.props.content, content)
+    this.props.save && this.props.save(content)
+    this.content = content
   }
 
   keyDown (e) {
@@ -51,10 +46,11 @@ class Editable extends Component {
     // FF 38.5 (Windows), innerText = undefined !!!
     // console.log(e.target.innerText, e.target.innerHTML)
     const content = trim(e.target.innerHTML).replace(/<br>$/, '')
-    this.save(content)
+    this.save(formatValue(content))
   }
 
   render () {
+    this.content = this.props.content
     return (
       <div
         ref={input => { this.input = input }}
@@ -63,7 +59,7 @@ class Editable extends Component {
         onKeyDown={this.keyDown}
         onBlur={this.blur}
         dangerouslySetInnerHTML={{
-          __html: formatContent(this.state.content)
+          __html: formatContent(this.props.content)
         }}
         />
     )
