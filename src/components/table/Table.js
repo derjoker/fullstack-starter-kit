@@ -49,6 +49,7 @@ class Table extends Component {
     // const content = data[cell.index][cell.column.id]
     return (
       <Editable
+        key={cell.index}
         content={cell.value}
         save={this.save(cell)}
       />
@@ -64,7 +65,8 @@ class Table extends Component {
       }
       return (
         <select
-          defaultValue={cell.value}
+          key={cell.index}
+          defaultValue={cell.value || undefined}
           onChange={change} >
           {['-'].concat(options).map((option, index) => <option key={index}>{option}</option>)}
         </select>
