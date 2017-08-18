@@ -22,7 +22,7 @@ module.exports = function Facotry (db, name, schema, indexes = []) {
     doc._id = _id
     const model = new Model(doc)
     const _doc = model.toJSON()
-    const update = omit(_doc, indexes)
+    const update = omit(pick(_doc, Object.keys(doc)), indexes)
     return Model.findByIdAndUpdate(_id, update, {new: true})
   }
 
@@ -33,6 +33,8 @@ module.exports = function Facotry (db, name, schema, indexes = []) {
    */
   async function _insert (doc) {
     const model = new Model(doc)
+    if (indexes.length === 0) return model.save()
+
     const condition = pick(model, indexes)
     const found = await Model.findOne(condition)
 
