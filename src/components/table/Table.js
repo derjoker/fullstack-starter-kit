@@ -18,9 +18,18 @@ class Table extends Component {
           Cell: this.renderSelectable(column.options)
         }
       } else if (column.editable) {
+        let Cell = this.renderEditable
+        if (column.wrap) {
+          const Wrapper = column.wrap
+          Cell = cell => {
+            return (
+              <Wrapper cell={cell}>{this.renderEditable(cell)}</Wrapper>
+            )
+          }
+        }
         return {
           ...column,
-          Cell: this.renderEditable
+          Cell
         }
       } else return column
     })

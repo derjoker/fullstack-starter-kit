@@ -1,20 +1,20 @@
 import React from 'react'
 import { gql, graphql, compose } from 'react-apollo'
 
-import Table from '../components/table/Table'
+import UserTable, { column } from '../components/table/UserTable'
 
-const columns = [
-  {Header: 'Name', accessor: 'name', minWidth: 50},
-  {Header: 'Email', accessor: 'email'},
-  {Header: 'Address', accessor: 'address', editable: true},
-  {Header: 'Age', accessor: 'age', editable: true}
-]
+const columns = column.build([
+  {accessor: 'name'},
+  {accessor: 'email'},
+  {accessor: 'address', editable: true},
+  {accessor: 'age', editable: true}
+])
 
 const User = ({ data, mutate }) => {
   const { loading, users } = data
   return (
     <div>
-      <Table
+      <UserTable
         loading={loading}
         columns={columns}
         data={users}
