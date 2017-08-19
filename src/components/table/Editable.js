@@ -2,17 +2,29 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { trim, isNil } from 'lodash'
 
-function formatContent (value) {
-  return (isNil(value) || value === '') ? '<br>' : value
+function isEmpty (value) {
+  return value === '' || isNil(value)
 }
 
-function formatValue (content) {
-  return content === '' ? null : content
+function formatContent (value) {
+  return isEmpty(value) ? '<br>' : value
 }
+
+/*
+ * input:
+ * 1) '', undefined, null (empty) -> <br>
+ * 2) number -> string
+ * 3) string
+ *
+ * output:
+ * 1) '' -> undefined/null
+ * 2) string (number/string)
+ */
 
 class Editable extends Component {
   constructor (props) {
     super(props)
+    this.content = this.props.content
     this.reset = this.reset.bind(this)
     this.save = this.save.bind(this)
     this.keyDown = this.keyDown.bind(this)
@@ -24,11 +36,15 @@ class Editable extends Component {
   }
 
   save (content) {
-    if (this.props.content === content) return
+    let toSave
+    if (isEmpty(this.content)) {
+      if (isEmpty(content)) return
+    } else if (this.content.toString() === content) return
 
-    console.log(this.props.content, content)
-    this.props.save && this.props.save(content)
-    this.content = content
+    console.log(this.content, content)
+    toSave = content === '' ? null : content
+    this.props.save && this.props.save(toSave)
+    this.content = toSave
   }
 
   keyDown (e) {
@@ -46,11 +62,10 @@ class Editable extends Component {
     // FF 38.5 (Windows), innerText = undefined !!!
     // console.log(e.target.innerText, e.target.innerHTML)
     const content = trim(e.target.innerHTML).replace(/<br>$/, '')
-    this.save(formatValue(content))
+    this.save(content)
   }
 
   render () {
-    this.content = this.props.content
     return (
       <div
         ref={input => { this.input = input }}
@@ -67,7 +82,8 @@ class Editable extends Component {
 }
 
 Editable.propTypes = {
-  content: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  content: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  save: PropTypes.func
 }
 
 export default Editable
