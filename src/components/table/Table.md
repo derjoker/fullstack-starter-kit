@@ -1,28 +1,4 @@
-## Editable
-
-```jsx
-<Editable content={'Editable'} />
-```
-
-* empty string
-
-```jsx
-<Editable content={''} />
-```
-
-* `undefined`
-
-```jsx
-<Editable content={undefined} />
-```
-
-* `null`
-
-```jsx
-<Editable content={null} />
-```
-
-## Basic Table
+* Basic Table
 
 ```jsx
 require('react-table/react-table.css')
