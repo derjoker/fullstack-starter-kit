@@ -84,20 +84,18 @@ class Table extends Component {
   }
 
   render () {
-    const { loading, data } = this.props
     const columns = this.columns
     return (
       <div>
         <ReactTable
-          loading={loading}
-          columns={columns}
-          data={data}
           filterable
           defaultFilterMethod={(filter, row) => (new RegExp(filter.value)).test(row[filter.id])}
-          pageSize={data.length}
+          pageSize={this.props.data.length}
           showPagination={false}
           style={{textAlign: 'center'}}
-          className='-striped -highlight' />
+          className='-striped -highlight'
+          {...this.props}
+          columns={columns} />
       </div>
     )
   }
