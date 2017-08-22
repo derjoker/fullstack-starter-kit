@@ -61,7 +61,7 @@ class Editable extends Component {
   blur (e) {
     // FF 38.5 (Windows), innerText = undefined !!!
     // console.log(e.target.innerText, e.target.innerHTML)
-    const content = trim(e.target.innerHTML).replace(/<br>$/, '')
+    const content = trim(e.target.innerHTML).replace(/<[^>]*>/g, '')
     this.save(content)
   }
 
