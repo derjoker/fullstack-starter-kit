@@ -1,0 +1,44 @@
+{
+  "name": "fullstack-starter-kit",
+  "version": "0.1.0",
+  "description": "React + GraphQL + MongoDB",
+  "scripts": {
+    "dev": "nodemon server --exec babel-node",
+    "build": "next build",
+    "start": "NODE_ENV=production babel-node server",
+    "test": "standard && jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derjoker/fullstack-starter-kit.git"
+  },
+  "keywords": [
+    "react",
+    "graphql",
+    "mongodb"
+  ],
+  "author": "Feng Ya",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/derjoker/fullstack-starter-kit/issues"
+  },
+  "homepage": "https://github.com/derjoker/fullstack-starter-kit#readme",
+  "dependencies": {
+    "apollo-server-express": "^1.0.5",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "graphql": "^0.10.5",
+    "graphql-tools": "^1.2.1",
+    "next": "^3.0.1-beta.21",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-table": "^6.5.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "jest": "^20.0.4",
+    "nodemon": "^1.11.0",
+    "standard": "^10.0.3"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "presets": [
+    ["env", { "modules": "commonjs" }],
+    "next/babel"
+  ]
+}
