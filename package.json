@@ -31,8 +31,7 @@
     "graphql-tools": "^1.2.1",
     "next": "^3.0.1-beta.21",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-table": "^6.5.3"
+    "react-dom": "^15.6.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
