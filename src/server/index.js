@@ -2,10 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import { graphqlExpress, graphiqlExpress } from 'apollo-server-express'
 
-import connect from './connect'
 import schema from './schema'
-
-connect()
 
 const server = express()
 
